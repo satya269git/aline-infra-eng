@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   IMAGE_NAME: grafana-oss
   DOCKER_SOURCE_IMAGE: grafana/grafana-oss:latest
@@ -22,6 +26,8 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        allow-no-subscriptions: true
+        enable-AzPSSession: false
 
     - name: Pull Grafana image from Docker Hub
       run: |
